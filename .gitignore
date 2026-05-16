@@ -1,3 +1,6 @@
-exports/
+data/drafts/
+data/exports/
 __pycache__/
+backend/__pycache__/
+backend/*/__pycache__/
 .env
