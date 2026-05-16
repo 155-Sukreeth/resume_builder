@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --left-col-bg: #0A5B5A;
+            --left-col-text: #ffffff;
+            --right-col-bg: #ffffff;
+            --right-col-text: #333333;
+            --primary: #0A5B5A;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #525659;
+            display: flex;
+            justify-content: center;
+        }
+
+        .resume-paper {
+            width: 210mm;
+            min-height: 297mm;
+            background: var(--right-col-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: row;
+            font-size: 11px;
+            position: relative;
+        }
+
+        .resume-left {
+            width: 32%;
+            background-color: var(--left-col-bg);
+            color: var(--left-col-text);
+            padding: 40px 25px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .photo-container {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 20px auto;
+            border: 3px solid rgba(255,255,255,0.2);
+        }
+        .photo-container img { width: 100%; height: 100%; object-fit: cover; }
+
+        .preview-name {
+            font-size: 26px;
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .left-section h2 {
+            font-size: 13px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.3);
+            padding-bottom: 5px;
+            text-transform: uppercase;
+        }
+
+        .left-section { margin-bottom: 25px; }
+        .left-item { margin-bottom: 15px; }
+        .left-item-title { font-weight: 600; margin-bottom: 3px; font-size: 12px; }
+        .left-item-subtitle { font-size: 11px; opacity: 0.9; margin-bottom: 3px; }
+        .left-item-date { font-size: 10px; margin-bottom: 3px; color: #a1cece; }
+        .left-item-desc { font-size: 10.5px; opacity: 0.8; line-height: 1.4; }
+        
+        .skills-container {
+            display: flex; flex-wrap: wrap; gap: 6px; font-size: 11px; line-height: 1.6; opacity: 0.9;
+        }
+
+        .resume-right { width: 68%; padding: 40px; color: var(--right-col-text); }
+        .right-title { color: var(--primary); font-size: 16px; font-weight: 400; margin-bottom: 15px; }
+        .contact-info { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; font-size: 10px; color: #666; }
+        .contact-item { display: flex; align-items: center; gap: 5px; }
+        
+        .right-section { margin-bottom: 25px; }
+        .right-section h2 {
+            font-size: 13px; font-weight: 500; letter-spacing: 1px; margin-bottom: 15px; color: #555; text-transform: uppercase;
+        }
+        
+        .preview-summary { font-size: 11px; line-height: 1.5; color: #444; }
+        
+        .right-item { margin-bottom: 15px; }
+        .right-item-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 3px; }
+        .right-item-title { font-weight: 500; font-size: 12px; }
+        .right-item-date { font-size: 10px; color: #666; }
+        .right-item-subheader { display: flex; justify-content: space-between; margin-bottom: 5px; }
+        .right-item-subtitle { color: var(--primary); font-size: 11px; }
+        .right-item-location { font-size: 10px; color: #666; }
+        .right-item-desc { font-size: 11px; line-height: 1.5; color: #444; }
+        .right-item-desc ul { padding-left: 15px; margin-top: 3px; }
+        .right-item-desc li { margin-bottom: 3px; }
+        .right-item-extra { font-size: 10px; color: #666; margin-top: 3px; }
+
+        @media print {
+            body { background: none; display: block; }
+            .resume-paper {
+                box-shadow: none; width: 210mm; height: 297mm; page-break-after: avoid; margin: 0; padding: 0;
+            }
+            @page { size: A4; margin: 0; }
+            .resume-left, .right-title { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
+    </style>
+</head>
+<body>
+    <div class="resume-paper">
+        <div class="resume-left">
+            {% if photo %}
+            <div class="photo-container">
+                <img src="{{ photo }}" alt="Profile Photo">
+            </div>
+            {% endif %}
+            
+            <h1 class="preview-name">{{ name if name else 'YOUR NAME' }}</h1>
+
+            {% if sections.certifications and sections.certifications|length > 0 %}
+            <div class="resume-section left-section">
+                <h2>CERTIFICATION</h2>
+                <div class="items-container">
+                    {% for item in sections.certifications %}
+                    <div class="left-item">
+                        {% if item.title %}<div class="left-item-title">{{ item.title }}</div>{% endif %}
+                        {% if item.subtitle %}<div class="left-item-subtitle">{{ item.subtitle }}</div>{% endif %}
+                        {% if item.date %}<div class="left-item-date">{{ item.date }}</div>{% endif %}
+                        {% if item.desc %}<div class="left-item-desc">{{ item.desc | safe }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if sections.achievements and sections.achievements|length > 0 %}
+            <div class="resume-section left-section">
+                <h2>KEY ACHIEVEMENTS</h2>
+                <div class="items-container">
+                    {% for item in sections.achievements %}
+                    <div class="left-item">
+                        {% if item.title %}<div class="left-item-title">{{ item.title }}</div>{% endif %}
+                        {% if item.subtitle %}<div class="left-item-subtitle">{{ item.subtitle }}</div>{% endif %}
+                        {% if item.date %}<div class="left-item-date">{{ item.date }}</div>{% endif %}
+                        {% if item.desc %}<div class="left-item-desc">{{ item.desc | safe }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if skills %}
+            <div class="resume-section left-section">
+                <h2>SKILLS</h2>
+                <div class="skills-container">
+                    {% set skill_list = skills.split(',') %}
+                    {% for skill in skill_list %}
+                        {% if skill.strip() %}
+                            <span>{{ skill.strip() }}</span>
+                            {% if not loop.last %}<span style="opacity: 0.5;"> • </span>{% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if sections.projects and sections.projects|length > 0 %}
+            <div class="resume-section left-section">
+                <h2>PROJECTS</h2>
+                <div class="items-container">
+                    {% for item in sections.projects %}
+                    <div class="left-item">
+                        {% if item.title %}<div class="left-item-title">{{ item.title }}</div>{% endif %}
+                        {% if item.subtitle %}<div class="left-item-subtitle">{{ item.subtitle }}</div>{% endif %}
+                        {% if item.date %}<div class="left-item-date">{{ item.date }}</div>{% endif %}
+                        {% if item.desc %}<div class="left-item-desc">{{ item.desc | safe }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="resume-right">
+            <h2 class="right-title">{{ title if title else 'Job Title' }}</h2>
+            
+            <div class="contact-info">
+                {% if phone %}<span class="contact-item"><i class="fa-solid fa-phone"></i> <span>{{ phone }}</span></span>{% endif %}
+                {% if email %}<span class="contact-item"><i class="fa-solid fa-envelope"></i> <span>{{ email }}</span></span>{% endif %}
+                {% if linkedin %}<span class="contact-item"><i class="fa-brands fa-linkedin"></i> <span>{{ linkedin }}</span></span>{% endif %}
+                {% if location %}<span class="contact-item"><i class="fa-solid fa-location-dot"></i> <span>{{ location }}</span></span>{% endif %}
+            </div>
+
+            {% if summary %}
+            <div class="resume-section right-section">
+                <h2>SUMMARY</h2>
+                <p class="preview-summary">{{ summary }}</p>
+            </div>
+            {% endif %}
+
+            {% if sections.experience and sections.experience|length > 0 %}
+            <div class="resume-section right-section">
+                <h2>EXPERIENCE</h2>
+                <div class="items-container">
+                    {% for item in sections.experience %}
+                    <div class="right-item">
+                        <div class="right-item-header">
+                            {% if item.title %}<div class="right-item-title">{{ item.title }}</div>{% endif %}
+                            {% if item.date %}<div class="right-item-date">{{ item.date }}</div>{% endif %}
+                        </div>
+                        <div class="right-item-subheader">
+                            {% if item.subtitle %}<div class="right-item-subtitle">{{ item.subtitle }}</div>{% endif %}
+                            {% if item.location %}<div class="right-item-location">{{ item.location }}</div>{% endif %}
+                        </div>
+                        {% if item.desc %}<div class="right-item-desc">{{ item.desc | safe }}</div>{% endif %}
+                        {% if item.extra %}<div class="right-item-extra">{{ item.extra }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if sections.education and sections.education|length > 0 %}
+            <div class="resume-section right-section">
+                <h2>EDUCATION</h2>
+                <div class="items-container">
+                    {% for item in sections.education %}
+                    <div class="right-item">
+                        <div class="right-item-header">
+                            {% if item.title %}<div class="right-item-title">{{ item.title }}</div>{% endif %}
+                            {% if item.date %}<div class="right-item-date">{{ item.date }}</div>{% endif %}
+                        </div>
+                        <div class="right-item-subheader">
+                            {% if item.subtitle %}<div class="right-item-subtitle">{{ item.subtitle }}</div>{% endif %}
+                            {% if item.location %}<div class="right-item-location">{{ item.location }}</div>{% endif %}
+                        </div>
+                        {% if item.desc %}<div class="right-item-desc">{{ item.desc | safe }}</div>{% endif %}
+                        {% if item.extra %}<div class="right-item-extra">{{ item.extra }}</div>{% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

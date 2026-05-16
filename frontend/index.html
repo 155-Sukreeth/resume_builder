@@ -16,7 +16,7 @@
                 <h2>Resume Builder</h2>
                 <div class="header-actions">
                     <button id="save-draft-btn" class="btn btn-secondary">Save Draft</button>
-                    <button id="export-pdf-btn" class="btn btn-primary">Export PDF</button>
+                    <button id="export-pdf-btn" class="btn btn-primary">Export PDF (Backend)</button>
                 </div>
             </div>
 
@@ -72,9 +72,7 @@
                 </section>
 
                 <!-- Dynamic Sections Container -->
-                <div id="dynamic-sections">
-                    <!-- Certifications, Achievements, Projects, Experience, Education will be injected here via JS -->
-                </div>
+                <div id="dynamic-sections"></div>
 
                 <div class="add-section-buttons">
                     <button class="btn btn-outline" onclick="addListSection('experience', 'Experience')">+ Add Experience</button>
@@ -86,64 +84,9 @@
             </div>
         </div>
 
-        <!-- Resume Preview -->
-        <div class="preview-container">
-            <div class="resume-paper" id="resume-preview">
-                <!-- Left Column -->
-                <div class="resume-left">
-                    <div class="photo-container" id="preview-photo-container" style="display: none;">
-                        <img id="preview-photo" src="" alt="Profile Photo">
-                    </div>
-                    <h1 id="preview-name">JOHN DOE</h1>
-
-                    <div id="preview-certifications" class="resume-section left-section">
-                        <h2>CERTIFICATION</h2>
-                        <div class="items-container"></div>
-                    </div>
-
-                    <div id="preview-achievements" class="resume-section left-section">
-                        <h2>KEY ACHIEVEMENTS</h2>
-                        <div class="items-container"></div>
-                    </div>
-
-                    <div id="preview-skills" class="resume-section left-section">
-                        <h2>SKILLS</h2>
-                        <div class="skills-container" id="preview-skills-content"></div>
-                    </div>
-
-                    <div id="preview-projects" class="resume-section left-section">
-                        <h2>PROJECTS</h2>
-                        <div class="items-container"></div>
-                    </div>
-                </div>
-
-                <!-- Right Column -->
-                <div class="resume-right">
-                    <h2 class="right-title" id="preview-title">Software Engineer</h2>
-                    
-                    <div class="contact-info">
-                        <span class="contact-item"><i class="fa-solid fa-phone"></i> <span id="preview-phone"></span></span>
-                        <span class="contact-item"><i class="fa-solid fa-envelope"></i> <span id="preview-email"></span></span>
-                        <span class="contact-item"><i class="fa-brands fa-linkedin"></i> <span id="preview-linkedin"></span></span>
-                        <span class="contact-item"><i class="fa-solid fa-location-dot"></i> <span id="preview-location"></span></span>
-                    </div>
-
-                    <div id="preview-summary-section" class="resume-section right-section">
-                        <h2>SUMMARY</h2>
-                        <p id="preview-summary"></p>
-                    </div>
-
-                    <div id="preview-experience" class="resume-section right-section">
-                        <h2>EXPERIENCE</h2>
-                        <div class="items-container"></div>
-                    </div>
-
-                    <div id="preview-education" class="resume-section right-section">
-                        <h2>EDUCATION</h2>
-                        <div class="items-container"></div>
-                    </div>
-                </div>
-            </div>
+        <!-- Resume Preview iframe -->
+        <div class="preview-container" style="padding: 0; background: #525659; overflow: hidden;">
+            <iframe id="preview-iframe" style="width: 100%; height: 100%; border: none; background: #525659;"></iframe>
         </div>
     </div>
     
@@ -152,7 +95,7 @@
         <div class="form-group list-item-editor">
             <div class="list-item-header">
                 <span class="item-title-label">Item</span>
-                <button class="remove-btn" onclick="this.closest('.list-item-editor').remove(); updatePreview();"><i class="fa-solid fa-trash"></i></button>
+                <button class="remove-btn" onclick="this.closest('.list-item-editor').remove(); triggerPreviewUpdate();"><i class="fa-solid fa-trash"></i></button>
             </div>
             <input type="text" class="item-title" placeholder="Title">
             <input type="text" class="item-subtitle" placeholder="Subtitle / Company / Institution">
