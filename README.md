@@ -43,6 +43,18 @@ Or run it manually:
 python -m backend.main
 ```
 
+### 4. Run with Docker
+
+Alternatively, you can run the entire application completely containerized using Docker:
+
+```bash
+# Build the Docker image
+docker build -t resume-builder .
+
+# Run the container (binds port 8000 and mounts the data folder for persistent drafts/exports)
+docker run -p 8000:8000 -v $(pwd)/data:/app/data resume-builder
+```
+
 The application will be available at: `http://localhost:8000`
 
 ## Features
