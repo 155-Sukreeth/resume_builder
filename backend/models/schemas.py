@@ -2,6 +2,7 @@ from pydantic import BaseModel
 from typing import Dict, Any, List, Optional
 
 class ResumeData(BaseModel):
+    template_id: str = "modern_split"
     photo: Optional[str] = ""
     name: Optional[str] = ""
     title: Optional[str] = ""

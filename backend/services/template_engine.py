@@ -40,6 +40,8 @@ def process_data_for_template(data: ResumeData) -> dict:
     return d
 
 def render_resume_html(data: ResumeData) -> str:
-    template = env.get_template("resume.html")
+    # Choose template safely, fallback to default
+    template_name = data.template_id if getattr(data, 'template_id', None) else "modern_split"
+    template = env.get_template(f"{template_name}.html")
     context = process_data_for_template(data)
     return template.render(**context)
