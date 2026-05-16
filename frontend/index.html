@@ -97,6 +97,36 @@
                 <span class="item-title-label">Item</span>
                 <button class="remove-btn" onclick="this.closest('.list-item-editor').remove(); triggerPreviewUpdate();"><i class="fa-solid fa-trash"></i></button>
             </div>
+            <select class="item-icon" style="margin-bottom: 5px; width: 100%; padding: 8px; border-radius: 4px; border: 1px solid #ddd;">
+                <optgroup label="General">
+                    <option value="">No Icon</option>
+                    <option value="fa-solid fa-trophy">Trophy</option>
+                    <option value="fa-solid fa-certificate">Certificate</option>
+                    <option value="fa-solid fa-award">Award</option>
+                    <option value="fa-solid fa-star">Star</option>
+                    <option value="fa-solid fa-briefcase">Briefcase</option>
+                    <option value="fa-solid fa-graduation-cap">Graduation Cap</option>
+                </optgroup>
+                <optgroup label="Tech & AI">
+                    <option value="fa-solid fa-cloud">Cloud</option>
+                    <option value="fa-solid fa-database">Database</option>
+                    <option value="fa-solid fa-server">Server</option>
+                    <option value="fa-solid fa-network-wired">Network</option>
+                    <option value="fa-solid fa-microchip">Microchip</option>
+                    <option value="fa-solid fa-robot">Robot (AI)</option>
+                    <option value="fa-solid fa-brain">Brain (AI)</option>
+                    <option value="fa-solid fa-code">Code</option>
+                    <option value="fa-solid fa-laptop-code">Laptop</option>
+                    <option value="fa-solid fa-cogs">Gears</option>
+                    <option value="fa-solid fa-chart-line">Chart</option>
+                </optgroup>
+                <optgroup label="Brands">
+                    <option value="fa-brands fa-python">Python</option>
+                    <option value="fa-brands fa-aws">AWS</option>
+                    <option value="fa-brands fa-docker">Docker</option>
+                    <option value="fa-brands fa-github">GitHub</option>
+                </optgroup>
+            </select>
             <input type="text" class="item-title" placeholder="Title">
             <input type="text" class="item-subtitle" placeholder="Subtitle / Company / Institution">
             <div class="row">

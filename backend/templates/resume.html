@@ -136,7 +136,7 @@
                 <div class="items-container">
                     {% for item in sections.certifications %}
                     <div class="left-item">
-                        {% if item.title %}<div class="left-item-title">{{ item.title }}</div>{% endif %}
+                        {% if item.title %}<div class="left-item-title">{% if item.icon %}<i class="{{ item.icon }}" style="margin-right: 5px;"></i>{% endif %}{{ item.title }}</div>{% endif %}
                         {% if item.subtitle %}<div class="left-item-subtitle">{{ item.subtitle }}</div>{% endif %}
                         {% if item.date %}<div class="left-item-date">{{ item.date }}</div>{% endif %}
                         {% if item.desc %}<div class="left-item-desc">{{ item.desc | safe }}</div>{% endif %}
@@ -152,7 +152,7 @@
                 <div class="items-container">
                     {% for item in sections.achievements %}
                     <div class="left-item">
-                        {% if item.title %}<div class="left-item-title">{{ item.title }}</div>{% endif %}
+                        {% if item.title %}<div class="left-item-title">{% if item.icon %}<i class="{{ item.icon }}" style="margin-right: 5px;"></i>{% endif %}{{ item.title }}</div>{% endif %}
                         {% if item.subtitle %}<div class="left-item-subtitle">{{ item.subtitle }}</div>{% endif %}
                         {% if item.date %}<div class="left-item-date">{{ item.date }}</div>{% endif %}
                         {% if item.desc %}<div class="left-item-desc">{{ item.desc | safe }}</div>{% endif %}
@@ -218,7 +218,7 @@
                     {% for item in sections.experience %}
                     <div class="right-item">
                         <div class="right-item-header">
-                            {% if item.title %}<div class="right-item-title">{{ item.title }}</div>{% endif %}
+                            {% if item.title %}<div class="right-item-title">{% if item.icon %}<i class="{{ item.icon }}" style="margin-right: 5px;"></i>{% endif %}{{ item.title }}</div>{% endif %}
                             {% if item.date %}<div class="right-item-date">{{ item.date }}</div>{% endif %}
                         </div>
                         <div class="right-item-subheader">
@@ -240,7 +240,7 @@
                     {% for item in sections.education %}
                     <div class="right-item">
                         <div class="right-item-header">
-                            {% if item.title %}<div class="right-item-title">{{ item.title }}</div>{% endif %}
+                            {% if item.title %}<div class="right-item-title">{% if item.icon %}<i class="{{ item.icon }}" style="margin-right: 5px;"></i>{% endif %}{{ item.title }}</div>{% endif %}
                             {% if item.date %}<div class="right-item-date">{{ item.date }}</div>{% endif %}
                         </div>
                         <div class="right-item-subheader">

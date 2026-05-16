@@ -114,6 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editorDiv.dataset.type = type;
 
         if (data) {
+            editorDiv.querySelector('.item-icon').value = data.icon || '';
             editorDiv.querySelector('.item-title').value = data.title || '';
             editorDiv.querySelector('.item-subtitle').value = data.subtitle || '';
             editorDiv.querySelector('.item-date').value = data.date || '';
@@ -122,7 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             editorDiv.querySelector('.item-extra').value = data.extra || '';
         }
 
-        editorDiv.querySelectorAll('input, textarea').forEach(input => {
+        editorDiv.querySelectorAll('input, textarea, select').forEach(input => {
             input.addEventListener('input', () => {
                 triggerPreviewUpdate();
             });
@@ -164,6 +165,7 @@ document.addEventListener('DOMContentLoaded', () => {
         editors.forEach(editor => {
             const type = editor.dataset.type;
             const item = {
+                icon: editor.querySelector('.item-icon').value,
                 title: editor.querySelector('.item-title').value,
                 subtitle: editor.querySelector('.item-subtitle').value,
                 date: editor.querySelector('.item-date').value,
