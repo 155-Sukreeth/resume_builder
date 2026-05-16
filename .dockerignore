@@ -1,0 +1,11 @@
+.git
+.gitignore
+__pycache__
+backend/__pycache__
+backend/*/__pycache__
+data/drafts/
+data/exports/
+.env
+run.bat
+environment.yml
+README.md
