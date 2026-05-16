@@ -119,7 +119,9 @@ def export_pdf(data: ResumeData):
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         page.set_content(html_content, wait_until="load")
-        page.pdf(path=pdf_filename, format="A4", print_background=True)
+        page.evaluate("document.fonts.ready")
+        page.emulate_media(media="screen")
+        page.pdf(path=pdf_filename, print_background=True, prefer_css_page_size=True, margin={"top": "0", "bottom": "0", "left": "0", "right": "0"})
         browser.close()
         
     return FileResponse(path=pdf_filename, filename="resume.pdf", media_type="application/pdf")
