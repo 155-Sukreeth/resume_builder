@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Editor Sidebar -->
+        <div class="editor-sidebar no-print">
+            <div class="editor-header">
+                <h2>Resume Builder</h2>
+                <div class="header-actions">
+                    <button id="save-draft-btn" class="btn btn-secondary">Save Draft</button>
+                    <button id="export-pdf-btn" class="btn btn-primary">Export PDF</button>
+                </div>
+            </div>
+
+            <div class="form-container">
+                <!-- Basic Info -->
+                <section class="form-section">
+                    <h3>Basic Information</h3>
+                    <div class="form-group">
+                        <label>Photo URL (Optional)</label>
+                        <input type="text" id="photo-url" placeholder="https://example.com/photo.jpg" data-field="photo">
+                    </div>
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="full-name" placeholder="John Doe" data-field="name">
+                    </div>
+                    <div class="form-group">
+                        <label>Job Title</label>
+                        <input type="text" id="job-title" placeholder="Software Engineer" data-field="title">
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="text" id="phone" placeholder="+1 234 567 890" data-field="phone">
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" placeholder="john@example.com" data-field="email">
+                    </div>
+                    <div class="form-group">
+                        <label>LinkedIn</label>
+                        <input type="text" id="linkedin" placeholder="linkedin.com/in/johndoe" data-field="linkedin">
+                    </div>
+                    <div class="form-group">
+                        <label>Location</label>
+                        <input type="text" id="location" placeholder="New York, NY" data-field="location">
+                    </div>
+                </section>
+
+                <!-- Summary -->
+                <section class="form-section">
+                    <h3>Summary</h3>
+                    <div class="form-group">
+                        <textarea id="summary" rows="4" placeholder="Brief professional summary..." data-field="summary"></textarea>
+                    </div>
+                </section>
+
+                <!-- Skills -->
+                <section class="form-section">
+                    <h3>Skills</h3>
+                    <p class="help-text">Enter skills separated by commas</p>
+                    <div class="form-group">
+                        <textarea id="skills" rows="3" placeholder="Python, JavaScript, React..." data-field="skills"></textarea>
+                    </div>
+                </section>
+
+                <!-- Dynamic Sections Container -->
+                <div id="dynamic-sections">
+                    <!-- Certifications, Achievements, Projects, Experience, Education will be injected here via JS -->
+                </div>
+
+                <div class="add-section-buttons">
+                    <button class="btn btn-outline" onclick="addListSection('experience', 'Experience')">+ Add Experience</button>
+                    <button class="btn btn-outline" onclick="addListSection('education', 'Education')">+ Add Education</button>
+                    <button class="btn btn-outline" onclick="addListSection('projects', 'Project')">+ Add Project</button>
+                    <button class="btn btn-outline" onclick="addListSection('certifications', 'Certification')">+ Add Certification</button>
+                    <button class="btn btn-outline" onclick="addListSection('achievements', 'Achievement')">+ Add Achievement</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Resume Preview -->
+        <div class="preview-container">
+            <div class="resume-paper" id="resume-preview">
+                <!-- Left Column -->
+                <div class="resume-left">
+                    <div class="photo-container" id="preview-photo-container" style="display: none;">
+                        <img id="preview-photo" src="" alt="Profile Photo">
+                    </div>
+                    <h1 id="preview-name">JOHN DOE</h1>
+
+                    <div id="preview-certifications" class="resume-section left-section">
+                        <h2>CERTIFICATION</h2>
+                        <div class="items-container"></div>
+                    </div>
+
+                    <div id="preview-achievements" class="resume-section left-section">
+                        <h2>KEY ACHIEVEMENTS</h2>
+                        <div class="items-container"></div>
+                    </div>
+
+                    <div id="preview-skills" class="resume-section left-section">
+                        <h2>SKILLS</h2>
+                        <div class="skills-container" id="preview-skills-content"></div>
+                    </div>
+
+                    <div id="preview-projects" class="resume-section left-section">
+                        <h2>PROJECTS</h2>
+                        <div class="items-container"></div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="resume-right">
+                    <h2 class="right-title" id="preview-title">Software Engineer</h2>
+                    
+                    <div class="contact-info">
+                        <span class="contact-item"><i class="fa-solid fa-phone"></i> <span id="preview-phone"></span></span>
+                        <span class="contact-item"><i class="fa-solid fa-envelope"></i> <span id="preview-email"></span></span>
+                        <span class="contact-item"><i class="fa-brands fa-linkedin"></i> <span id="preview-linkedin"></span></span>
+                        <span class="contact-item"><i class="fa-solid fa-location-dot"></i> <span id="preview-location"></span></span>
+                    </div>
+
+                    <div id="preview-summary-section" class="resume-section right-section">
+                        <h2>SUMMARY</h2>
+                        <p id="preview-summary"></p>
+                    </div>
+
+                    <div id="preview-experience" class="resume-section right-section">
+                        <h2>EXPERIENCE</h2>
+                        <div class="items-container"></div>
+                    </div>
+
+                    <div id="preview-education" class="resume-section right-section">
+                        <h2>EDUCATION</h2>
+                        <div class="items-container"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Template for list items in editor -->
+    <template id="list-item-template">
+        <div class="form-group list-item-editor">
+            <div class="list-item-header">
+                <span class="item-title-label">Item</span>
+                <button class="remove-btn" onclick="this.closest('.list-item-editor').remove(); updatePreview();"><i class="fa-solid fa-trash"></i></button>
+            </div>
+            <input type="text" class="item-title" placeholder="Title">
+            <input type="text" class="item-subtitle" placeholder="Subtitle / Company / Institution">
+            <div class="row">
+                <input type="text" class="item-date" placeholder="Date (e.g. 01/2023 - Present)">
+                <input type="text" class="item-location" placeholder="Location">
+            </div>
+            <textarea class="item-desc" rows="3" placeholder="Description or bullet points (use '-' for bullets)"></textarea>
+            <input type="text" class="item-extra" placeholder="GPA / Extra detail (optional)">
+        </div>
+    </template>
+
+    <script src="script.js"></script>
+</body>
+</html>
